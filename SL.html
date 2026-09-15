@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Server language</title>
+</head>
+<body>
+<h1>Server language</h1>
+<textarea id="a"></textarea><br>
+<button onclick="co();">run</button>
+<script>
+code=`
+from flask import Flask,request,render_template,send_file
+import ollama
+import os
+import sys
+app=Flask(__name__)
+`;
+function Pg(a,b,c,d){
+    let eee=c
+	.replaceAll("rt","render_template")
+	.replaceAll("rq","request")
+	.replaceAll("sf","send_file")
+	.replaceAll("ol","ollama")
+	.replaceAll("ct","chat")
+	.replaceAll("md","model")
+	.replaceAll("m/d","md")
+	.replaceAll("c/t","ct")
+	.replaceAll("o/l","ol")
+	.replaceAll("s/f","sf")
+	.replaceAll("r/q","rq")
+	.replaceAll("r/t","rt");
+    if(d===""){
+code+=`
+@app.route("${a}")
+def ${b}():
+    ${eee}
+`;
+	}else{
+code+=`
+@app.route("${a}",methods=[${d}])
+def ${b}():
+    ${eee}
+`;
+	}
+}
+function go(a,b){
+	code+=`
+app.run(host="${a}",port=${b})
+`;
+}
+function co(){
+	eval(document.getElementById("a").value);
+	alert(code);
+}
+</script>
+</body>
+</html>
